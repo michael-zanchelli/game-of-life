@@ -1,0 +1,79 @@
+/* Styling for Hilbert widget */
+
+div#gameOfLifeWidget {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Widget Title */
+div#gameOfLifeWidget #title #titleText {
+  font: bold 20pt 'Times New Roman', serif;
+}
+
+/* tooltip */
+div#gameOfLifeWidget #title #tooltip {
+  font-size: 18pt;
+  vertical-align: super;
+}
+
+/* The Drawing Canvas */
+div#gameOfLifeWidget canvas {
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+/* Speed GUI control for setting the speed */
+div#gameOfLifeWidget #speed {
+  margin: 6px 6px 6px 12px;
+}
+
+div#gameOfLifeWidget #speedLabel {
+  font-size: 140%;
+  margin: 1px 2px 8px 0px;
+}
+
+/* Size GUI control for setting the canvas size */
+div#gameOfLifeWidget #size {
+  margin: 6px 6px 6px 12px;
+}
+
+div#gameOfLifeWidget #sizeLabel {
+  font-size: 140%;
+  margin: 1px 2px 8px 0px;
+}
+
+/* Reset button */
+div#gameOfLifeWidget #clearButton {
+  width: 120px;
+  background-color: #09f;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: large;
+  margin: 6px;
+}
+
+div#gameOfLifeWidget #clearButton:hover {
+  background-color: #07d;
+}
+
+/* Start/Stop button */
+div#gameOfLifeWidget #startButton {
+  width: 120px;
+  background-color: #09f;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: large;
+  margin: 6px;
+}
+
+div#gameOfLifeWidget #startButton:hover {
+  background-color: #07d;
+}

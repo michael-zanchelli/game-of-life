@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<!-- Web page that hosts the Game Of Life widget -->
+<!-- TO DO:
+-->
+
+<HTML lang="en">
+
+<HEAD>
+  <TITLE>Game Of Life widget page</TITLE>
+  <META charset="utf-8">
+  <META name="keywords" value="game-of-life">
+  <META name="description" value="Generate and display/animate Conway's Game Of Life">
+  <meta name="author" content="Michael Zanchelli">
+  <META name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <LINK href="scripts/game-of-life-widget.css" rel="stylesheet" type="text/css">
+  <script src="scripts/game-of-life.js"></script>
+  <script src="scripts/game-of-life-widget.js"></script>
+</HEAD>
+
+<BODY>
+  <SECTION>
+    <div id="gameOfLifeWidget">
+      <div id="title">
+        <span id="titleText">Conway's Game Of Life</span>
+        <span id="tooltip"><a style="text-decoration:none" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"> &#x1F6C8; </a></span>
+      </div>
+      <canvas id="canvas"></canvas>
+      <label for="speed" id="speedLabel">Speed: <input type="range" id="speed" name="speed" list="tickmarks" min="0" max="2" >
+      </label>
+      <label for="size" id="sizeLabel">Size: <input type="range" id="size" name="size" list="tickmarks" min="0" max="2" >
+      </label>
+      <datalist id="tickmarks">
+        <option value="0"></option>
+        <option value="1"></option>
+        <option value="2"></option>
+      </datalist>
+      <!-- <button type="button" id="clearButton">Clear</button> -->
+      <button type="button" id="startButton">Start</button>
+    </div>
+  </SECTION>
+</BODY>
+
+</HTML>
