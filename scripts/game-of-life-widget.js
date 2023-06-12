@@ -8,8 +8,11 @@ class GameOfLifeWidget {
 
   #canvasCtx; /** The canvas context used to draw the Hilbert curve */
 
-  /** The GUI control that allows the user to set the size of the canvas */
-  #sizeControl;
+  /** The GUI control that allows the user to set the cell size */
+  #cellSizeControl;
+
+  /** The GUI control that allows the user to set the canvas size */
+  #canvasSizeControl;
 
   /** The GUI control that allows the user to set the drawing speed */
   #speedControl;
@@ -26,6 +29,13 @@ class GameOfLifeWidget {
 
   #windowResized = false;
 
+  /** Map control values to cell size (in pixels) */
+  static #CELL_SIZE_MAP = [
+    10,   // 0 (small)
+    15,   // 1 (medium)
+    20    // 2 (large)
+  ];
+
   /** window size to canvas size multiplier */
   static #CANVAS_SIZE_MAP = [
     0.3,  // 30% of window size
@@ -33,7 +43,7 @@ class GameOfLifeWidget {
     0.9   // 90% of window size
   ];
 
-  /** Values for delay/timeout when adjusting drawnig speed */
+  /** Values for delay/timeout when adjusting drawing speed */
   static #SHORTEST_TIMEOUT = 100;
   static #LONGEST_TIMEOUT = 500;
   static #TIMEOUT_RANGE = GameOfLifeWidget.#LONGEST_TIMEOUT - GameOfLifeWidget.#SHORTEST_TIMEOUT;
@@ -44,12 +54,11 @@ class GameOfLifeWidget {
    */
   constructor() {
     this.#speedControl = document.querySelector("div#gameOfLifeWidget #speed");
-    this.#sizeControl = document.querySelector("div#gameOfLifeWidget #size");
+    this.#cellSizeControl = document.querySelector("div#gameOfLifeWidget #cellSize");
+    this.#canvasSizeControl = document.querySelector("div#gameOfLifeWidget #canvasSize");
     this.#startStopButton = document.querySelector("div#gameOfLifeWidget #startButton");
-    // this.#clearButton = document.querySelector("div#gameOfLifeWidget #clearButton");
 
-    this.#sizeControl.onchange = () => this.sizeControlChangeHandler();
-    // this.#clearButton.onclick = () => this.clearButtonClickHandler();
+    this.#canvasSizeControl.onchange = () => this.canvasSizeControlChangeHandler();
     this.#startStopButton.onclick = () => this.startStopButtonClickHandler();
 
     this.#gameOfLife = new GameOfLife();  // Create instance of GameOfLife class
@@ -90,7 +99,8 @@ class GameOfLifeWidget {
   #afterStopRunning() {
     this.#startStopButton.innerHTML = "Start";
     this.#speedControl.disabled = false;
-    this.#sizeControl.disabled = false;
+    this.#cellSizeControl.disabled = false;
+    this.#canvasSizeControl.disabled = false;
     this.#isRunning = false;
     this.#stopRunning = false;
   }
@@ -99,11 +109,12 @@ class GameOfLifeWidget {
   drawGameOfLife() {
     this.#canvasCtx.clearRect(0, 0, this.#canvasCtx.canvas.width, this.#canvasCtx.canvas.height);
 
+    let cellSize = GameOfLifeWidget.#CELL_SIZE_MAP[this.cellSizeControl.value];
     let grid = this.#gameOfLife.iterate();
     for (let row in grid) {
       for (let col in grid[row]) {
         // console.log("(" + row + ", " + col + "):" + grid[row][col].isAlive);
-        Cell.draw(this.#canvasCtx, row, col, grid[row][col].isAlive);
+        Cell.draw(this.#canvasCtx, row, col, cellSize, grid[row][col].isAlive);
       }
     }
     if (this.#stopRunning) {
@@ -113,16 +124,13 @@ class GameOfLifeWidget {
     }
   }
 
-  /** Handle Reset button click */
-  clearButtonClickHandler() {
-  }
-
   /** Handle Start/Stop button click */
   startStopButtonClickHandler() {
     if (this.#startStopButton.innerHTML === "Start") {
       this.#startStopButton.innerHTML = "Stop";
       this.#speedControl.disabled = true;
-      this.#sizeControl.disabled = true;
+      this.#cellSizeControl.disabled = true;
+      this.#canvasSizeControl.disabled = true;
 
       if (this.#windowResized) {
         this.#setCanvasSize(this.#canvasCtx.canvas, this.#sizeControl);
@@ -157,7 +165,7 @@ class GameOfLifeWidget {
 /** Cell class to encapsulate (especially) drawing */
 class Cell {
   static size = 12;
-  static draw(canvasCtx, row, col, isAlive) {
+  static draw(canvasCtx, row, col, size, isAlive) {
     canvasCtx.fillStyle = isAlive ? "steelblue" : "white";
     canvasCtx.fillRect(col * Cell.size, row * Cell.size, Cell.size, Cell.size);
   }

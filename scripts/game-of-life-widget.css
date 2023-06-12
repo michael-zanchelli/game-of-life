@@ -24,7 +24,7 @@ div#gameOfLifeWidget canvas {
   border-radius: 4px;
 }
 
-/* Speed GUI control for setting the speed */
+/* GUI control for setting the speed */
 div#gameOfLifeWidget #speed {
   margin: 6px 6px 6px 12px;
 }
@@ -34,12 +34,22 @@ div#gameOfLifeWidget #speedLabel {
   margin: 1px 2px 8px 0px;
 }
 
-/* Size GUI control for setting the canvas size */
-div#gameOfLifeWidget #size {
+/* GUI control for setting the cell size */
+div#gameOfLifeWidget #cellSize {
   margin: 6px 6px 6px 12px;
 }
 
-div#gameOfLifeWidget #sizeLabel {
+div#gameOfLifeWidget #cellSizeLabel {
+  font-size: 140%;
+  margin: 1px 2px 8px 0px;
+}
+
+/* GUI control for setting the canvas size */
+div#gameOfLifeWidget #canvasSize {
+  margin: 6px 6px 6px 12px;
+}
+
+div#gameOfLifeWidget #canvasSizeLabel {
   font-size: 140%;
   margin: 1px 2px 8px 0px;
 }
