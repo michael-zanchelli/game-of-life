@@ -65,9 +65,20 @@ class GameOfLifeWidget {
 
     /* Get canvas context and initialize canvas size and associated grid size */
     this.#canvasCtx = document.querySelector("div#gameOfLifeWidget #canvas").getContext("2d");
-    this.#setCanvasSize(this.#canvasCtx.canvas, this.#sizeControl);
+    this.#setCanvasSize(this.#canvasCtx.canvas, this.#canvasSizeControl);
 
     window.onresize = () => this.windowResizeHandler(); // Handle resize events
+  }
+
+  #initGrid(canvas, gameOfLifeObj) {
+    let cellSize = this.#getCellSize();
+    let numCols = Math.floor(canvas.width / cellSize);
+    let numRows = Math.floor(canvas.height / cellSize);
+    gameOfLifeObj.initGrid(numRows, numCols);
+  }
+
+  #getCellSize() {
+    return GameOfLifeWidget.#CELL_SIZE_MAP[this.#cellSizeControl.value];
   }
 
   /** Set canvas size based on the window size and the value of the size
@@ -76,13 +87,6 @@ class GameOfLifeWidget {
   #setCanvasSize(canvas, sizeControl) {
     canvas.width = GameOfLifeWidget.#CANVAS_SIZE_MAP[sizeControl.value] * window.innerWidth;
     canvas.height = GameOfLifeWidget.#CANVAS_SIZE_MAP[sizeControl.value] * window.innerHeight;
-  }
-
-  #initGrid(canvas, gameOfLifeObj) {
-    let numCols = Math.floor(canvas.width / Cell.size);
-    let numRows = Math.floor(canvas.height / Cell.size);
-    gameOfLifeObj.initGrid(numRows, numCols);
-
   }
 
   /** Map speed value to timeout/delay value (in msecs)
@@ -105,16 +109,21 @@ class GameOfLifeWidget {
     this.#stopRunning = false;
   }
 
+  #drawCell(row, col, size, isAlive) {
+    // console.log("(" + row + ", " + col + "): " + size + ", " + isAlive);
+    this.#canvasCtx.fillStyle = isAlive ? "steelblue" : "white";
+    this.#canvasCtx.fillRect(col * size, row * size, size, size);
+  }
+
   /** Draw the game */
   drawGameOfLife() {
     this.#canvasCtx.clearRect(0, 0, this.#canvasCtx.canvas.width, this.#canvasCtx.canvas.height);
 
-    let cellSize = GameOfLifeWidget.#CELL_SIZE_MAP[this.cellSizeControl.value];
+    let cellSize = this.#getCellSize();
     let grid = this.#gameOfLife.iterate();
     for (let row in grid) {
       for (let col in grid[row]) {
-        // console.log("(" + row + ", " + col + "):" + grid[row][col].isAlive);
-        Cell.draw(this.#canvasCtx, row, col, cellSize, grid[row][col].isAlive);
+        this.#drawCell(row, col, cellSize, grid[row][col].isAlive);
       }
     }
     if (this.#stopRunning) {
@@ -133,7 +142,7 @@ class GameOfLifeWidget {
       this.#canvasSizeControl.disabled = true;
 
       if (this.#windowResized) {
-        this.#setCanvasSize(this.#canvasCtx.canvas, this.#sizeControl);
+        this.#setCanvasSize(this.#canvasCtx.canvas, this.#canvasSizeControl);
         this.#windowResized = false;
       }
       this.#initGrid(this.#canvasCtx.canvas, this.#gameOfLife);
@@ -148,27 +157,18 @@ class GameOfLifeWidget {
     }
   }
 
-  sizeControlChangeHandler() {
-    this.#setCanvasSize(this.#canvasCtx.canvas, this.#sizeControl,);
+  canvasSizeControlChangeHandler() {
+    this.#setCanvasSize(this.#canvasCtx.canvas, this.#canvasSizeControl,);
   }
 
   windowResizeHandler() {
     if (this.#isRunning) {
       this.#windowResized = true;
     } else {
-      this.#setCanvasSize(this.#canvasCtx.canvas, this.#sizeControl);
+      this.#setCanvasSize(this.#canvasCtx.canvas, this.#canvasSizeControl);
     }
   }
 
-}
-
-/** Cell class to encapsulate (especially) drawing */
-class Cell {
-  static size = 12;
-  static draw(canvasCtx, row, col, size, isAlive) {
-    canvasCtx.fillStyle = isAlive ? "steelblue" : "white";
-    canvasCtx.fillRect(col * Cell.size, row * Cell.size, Cell.size, Cell.size);
-  }
 }
 
 /* When page DOM is fully loaded, create an instance of the Game class */

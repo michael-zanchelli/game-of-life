@@ -24,7 +24,7 @@ class GameOfLife {
 
   /** Set grid size  */
   initGrid(numRows, numCols) {
-    console.log("initGrid: " + numRows + ", " + numCols);
+    // console.log("initGrid: " + numRows + ", " + numCols);
     for (let row = 0; row < numRows; row++) {
       this.#grid[row] = [];
       for (let col = 0; col < numCols; col++) {
