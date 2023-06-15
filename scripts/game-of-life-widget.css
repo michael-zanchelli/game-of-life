@@ -12,7 +12,7 @@ div#gameOfLifeWidget #title #titleText {
   font: bold 20pt 'Times New Roman', serif;
 }
 
-/* tooltip */
+/* Tooltip */
 div#gameOfLifeWidget #title #tooltip {
   font-size: 18pt;
   vertical-align: super;
@@ -24,51 +24,43 @@ div#gameOfLifeWidget canvas {
   border-radius: 4px;
 }
 
+/* Container layout for GUI controls */
+div#gameOfLifeWidget #controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 /* GUI control for setting the speed */
-div#gameOfLifeWidget #speed {
+div#gameOfLifeWidget #controls #speed {
   margin: 6px 6px 6px 12px;
 }
 
-div#gameOfLifeWidget #speedLabel {
+div#gameOfLifeWidget #controls #speedLabel {
   font-size: 140%;
   margin: 1px 2px 8px 0px;
+  justify-self: right
 }
 
 /* GUI control for setting the cell size */
-div#gameOfLifeWidget #cellSize {
+div#gameOfLifeWidget #controls #cellSize {
   margin: 6px 6px 6px 12px;
 }
 
-div#gameOfLifeWidget #cellSizeLabel {
+div#gameOfLifeWidget #controls #cellSizeLabel {
   font-size: 140%;
   margin: 1px 2px 8px 0px;
+  justify-self: right
 }
 
 /* GUI control for setting the canvas size */
-div#gameOfLifeWidget #canvasSize {
+div#gameOfLifeWidget #controls #canvasSize {
   margin: 6px 6px 6px 12px;
 }
 
-div#gameOfLifeWidget #canvasSizeLabel {
+div#gameOfLifeWidget #controls #canvasSizeLabel {
   font-size: 140%;
   margin: 1px 2px 8px 0px;
-}
-
-/* Reset button */
-div#gameOfLifeWidget #clearButton {
-  width: 120px;
-  background-color: #09f;
-  color: white;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: large;
-  margin: 6px;
-}
-
-div#gameOfLifeWidget #clearButton:hover {
-  background-color: #07d;
+  justify-self: right
 }
 
 /* Start/Stop button */

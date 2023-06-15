@@ -24,20 +24,23 @@
     <div id="gameOfLifeWidget">
       <div id="title">
         <span id="titleText">Conway's Game Of Life</span>
-        <span id="tooltip"><a style="text-decoration:none" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank"> &#x1F6C8; </a></span>
+        <span id="tooltip"><a style="text-decoration:none" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
+            target="_blank"> &#x1F6C8; </a></span>
       </div>
       <canvas id="canvas"></canvas>
-      <label for="speed" id="speedLabel">Speed: <input type="range" id="speed" name="speed" list="tickmarks" min="0" max="2" >
-      </label>
-      <label for="cellSize" id="cellSizeLabel">Cell Size: <input type="range" id="cellSize" name="cellSize" list="tickmarks" min="0" max="2" >
-      </label>
-      <label for="canvasSize" id="canvasSizeLabel">Canvas Size: <input type="range" id="canvasSize" name="canvasSize" list="tickmarks" min="0" max="2" >
-      </label>
-      <datalist id="tickmarks">
-        <option value="0"></option>
-        <option value="1"></option>
-        <option value="2"></option>
-      </datalist>
+      <div id="controls">
+        <label for="speed" id="speedLabel">Speed: </label>
+        <input type="range" id="speed" name="speed" list="tickmarks" min="0" max="2">
+        <label for="cellSize" id="cellSizeLabel">Cell Size: </label>
+        <input type="range" id="cellSize" name="cellSize" list="tickmarks" min="0" max="2">
+        <label for="canvasSize" id="canvasSizeLabel">Canvas Size: </label>
+        <input type="range" id="canvasSize" name="canvasSize" list="tickmarks" min="0" max="2">
+        <datalist id="tickmarks">
+          <option value="0"></option>
+          <option value="1"></option>
+          <option value="2"></option>
+        </datalist>
+      </div>
       <!-- <button type="button" id="clearButton">Clear</button> -->
       <button type="button" id="startButton">Start</button>
     </div>
