@@ -1,3 +1,7 @@
+body, html {
+  height: 100%;
+}
+
 /* Styling for Hilbert widget */
 
 div#gameOfLifeWidget {
@@ -5,9 +9,10 @@ div#gameOfLifeWidget {
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-/* Widget Title */
 div#gameOfLifeWidget #title #titleText {
   font: bold 20pt 'Times New Roman', serif;
 }
@@ -22,6 +27,12 @@ div#gameOfLifeWidget #title #tooltip {
 div#gameOfLifeWidget canvas {
   border: 2px solid black;
   border-radius: 4px;
+  /* block element helps with positioning and layout and prevents common
+   * issues like scrollbars or extra space
+  */
+  display: block;
+  height: 100%;
+  flex: 1;
 }
 
 /* Container layout for GUI controls */
